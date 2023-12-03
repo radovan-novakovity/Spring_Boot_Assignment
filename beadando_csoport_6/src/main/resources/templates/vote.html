@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote</title>
+</head>
+<body>
+<h1>We would very much like to hear your opinion about which ice cream flavor do you prefer out of these!</h1>
+<h2>Here are the options:</h2>
+<form method="POST" th:action="@{/vote}" action="#">
+    <table>
+        <tr>
+            <td><input type="radio" id="lemon" name="fav_icecream" value="lemon" required>
+                <label for="lemon">Lemon</label></td>
+        </tr>
+        <tr>
+            <td><input type="radio" id="vanilla" name="fav_icecream" value="vanilla" required>
+                <label for="vanilla">Vanilla</label></td>
+        </tr>
+        <tr>
+            <td><input type="radio" id="banana" name="fav_icecream" value="banana" required>
+                <label for="banana">Banana</label></td>
+        </tr>
+
+        <!-- Include a hidden input field for the name attribute -->
+        <!-- <input type="hidden" id="name" name="name" th:value="${user.name}">-->
+
+         <tr>
+             <td><br><input type="submit" value="Vote!"></td>
+         </tr>
+     </table>
+ </form><br>
+
+ <form method="POST" th:action="@{/logout}" action="#">
+     <input type="submit" value="Logout">
+ </form>
+ </body>
+ </html>

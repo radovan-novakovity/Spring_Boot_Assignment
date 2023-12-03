@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+
+<form method="POST" th:action="@{/register}" th:object="${user}" action="#">
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" th:field="*{name}"></td>
+            <td th:if="${#fields.hasErrors('name')}" style="color: red;" th:errors="*{name}"></td>
+            <!-- if the user tries to register with a username which already exists -->
+            <td th:if="${errorMessage}" style="color: red;" th:text="${errorMessage}"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" th:field="*{password}"></td>
+            <td th:if="${#fields.hasErrors('password')}" style="color: red;" th:errors="*{password}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register"></td>
+        </tr>
+    </table>
+</form>
+
+
+
+<p>Already have an account? Click here to login. <br> <a href="/"><button type="button">Login</button></a></p>
+</body>
+</html>

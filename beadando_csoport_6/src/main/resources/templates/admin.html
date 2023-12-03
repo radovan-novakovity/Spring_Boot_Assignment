@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
+<body>
+
+<h2>Registered user information</h2>
+
+<table style="width:20%">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Selected ice cream flavor</th>
+    </tr>
+    <tr th:each="user: *{userList}">
+        <td th:text="*{user.id}"></td>
+        <td th:text="*{user.name}"></td>
+        <td th:text="*{user.password}"></td>
+        <td th:text="*{user.role}"></td>
+        <td th:text="*{user.selectedFlavor}"></td>
+    </tr>
+
+</table>
+
+
+<a href="/vote"><button type="button">Vote</button></a>
+
+<form method="POST" th:action="@{/logout}" action="#">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
