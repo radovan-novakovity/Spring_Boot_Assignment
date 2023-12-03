@@ -2,7 +2,10 @@
 
 Spring Boot application made by my team, for a class assignment.
 
-We were tasked with creating an application, using Spring Boot, JPA, H2 database, and Thymeleaf template engine. We used the IntelliJ IDEA, which has Apache TomCat webserver integration. Once started, It runs on 8080 port, http://localhost:8080/
+The specifications required, that it has a Login / Register page, where users can login, and register. It should have validations, and a database of our choosing.
+It was possible to pick several application ideas, and we picked the one, where users can vote, and after voting it shows the updated vote results.
+
+It was created using Spring Boot, JPA, H2 database, and Thymeleaf template engine. We used the IntelliJ IDEA, which has Apache TomCat webserver integration. Once started, It runs on 8080 port, http://localhost:8080/
 
 There is an Admin user, and a regular User. (Admin/Admin) (TesztElek/Password)
 
