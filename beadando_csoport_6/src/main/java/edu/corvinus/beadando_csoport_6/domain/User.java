@@ -29,7 +29,6 @@ public class User {
     private String role;
 
     @Column(name = "VOTE")
-    @Basic
     private Boolean vote;
 
     @Column(name = "SELECTED_FLAVOR")
@@ -37,7 +36,7 @@ public class User {
 
 
     public User(){
-        // Default constructor required by JPA
+        // default constructor required by JPA
     }
 
     public User(String name, String password, String role, Boolean vote) {

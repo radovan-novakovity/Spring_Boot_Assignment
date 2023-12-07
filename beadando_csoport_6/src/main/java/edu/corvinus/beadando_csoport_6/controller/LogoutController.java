@@ -9,7 +9,7 @@ public class LogoutController {
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {
-        // Invalidate the session
+        // if the user clicks logout invalidate the session and returns them to login.html
         session.invalidate();
         return "redirect:/";
     }

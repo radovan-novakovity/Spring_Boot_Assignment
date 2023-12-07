@@ -21,12 +21,15 @@ public class AdminController {
     private final UserRepository userRepository;
 
     @Autowired
+    // annotation is used for automatic dependency injection
     public AdminController(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
     @GetMapping("/admin")
     public String showAdminPage(Model model) {
+        // finding all the users from the dabase and display their property values in admin.html
         List<User> users = userRepository.findAll();
         model.addAttribute("userList", users);
         return "admin";

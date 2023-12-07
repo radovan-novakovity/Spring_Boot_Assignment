@@ -20,10 +20,10 @@ import java.util.Optional;
 @Controller
 public class LoginController {
 
-    private final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
     private final UserRepository userRepository;
 
     @Autowired
+    // annotation is used for automatic dependency injection
     public LoginController(UserRepository userRepository) {
 
         this.userRepository = userRepository;
@@ -44,21 +44,24 @@ public class LoginController {
         String enteredUsername = user.getName();
         String enteredPassword = user.getPassword();
 
+        // uses the findByName defined in UserRepository
         Optional<User> userOptional = userRepository.findByName(enteredUsername);
+        // checks if the username is Admin
+        // if true it sets the session and redirects the Admin to admin.html
         if("Admin".equals(enteredUsername)){
             HttpSession session = request.getSession();
             session.setAttribute("user", enteredUsername);
             return "redirect:/admin";
         } else{
             if (bindingResult.hasErrors()) {
-                // If there are validation errors, return to the login page with error messages
-
+                // if there are validation errors, return to the login page with error messages
                 return "login";
             }
 
-            //Optional<User> userOptional = userRepository.findByName(enteredUsername);
+            // checks if the regular user is present in the database by the entered username
             if (userOptional.isPresent()) {
                 User databaseUser = userOptional.get();
+                // checks if the regular users password matches with that in the database and moves them to the vote page
                 if (enteredPassword.equals(databaseUser.getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", enteredUsername);
@@ -66,7 +69,7 @@ public class LoginController {
                     }
                 }
             }
-            // Authentication failed, show login page again
+            // authentication failed, show login page again
             model.addAttribute("errorMessage", "Invalid username or password");
             return "login";
         }

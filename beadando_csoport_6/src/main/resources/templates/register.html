@@ -13,6 +13,7 @@
             <td>Username:</td>
             <td><input type="text" th:field="*{name}"></td>
             <td th:if="${#fields.hasErrors('name')}" style="color: red;" th:errors="*{name}"></td>
+
             <!-- if the user tries to register with a username which already exists -->
             <td th:if="${errorMessage}" style="color: red;" th:text="${errorMessage}"></td>
         </tr>

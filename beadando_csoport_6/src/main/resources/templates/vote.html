@@ -5,7 +5,7 @@
     <title>Vote</title>
 </head>
 <body>
-<h1>We would very much like to hear your opinion about which ice cream flavor do you prefer out of these!</h1>
+<h1>Which ice cream flavor do you prefer out of these?</h1>
 <h2>Here are the options:</h2>
 <form method="POST" th:action="@{/vote}" action="#">
     <table>
@@ -21,9 +21,6 @@
             <td><input type="radio" id="banana" name="fav_icecream" value="banana" required>
                 <label for="banana">Banana</label></td>
         </tr>
-
-        <!-- Include a hidden input field for the name attribute -->
-        <!-- <input type="hidden" id="name" name="name" th:value="${user.name}">-->
 
          <tr>
              <td><br><input type="submit" value="Vote!"></td>

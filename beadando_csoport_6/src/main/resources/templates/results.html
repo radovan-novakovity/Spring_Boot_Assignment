@@ -5,16 +5,12 @@
     <title>Vote Result</title>
 </head>
 <body>
-<h1>Thank you for voting!</h1>
 
-<h2>Ice Cream Voting Results</h2>
+<h1>Ice Cream Voting Results</h1>
 
-<h3>Lemon Votes: <span th:text="${lemonVotes}"></span></h3>
-<h3>Vanilla Votes: <span th:text="${vanillaVotes}"></span></h3>
-<h3>Banana Votes: <span th:text="${bananaVotes}"></span></h3>
-
-
-<!-- Add other content as needed -->
+<h2>Lemon Votes: <span th:text="${lemonVotes}"></span></h2>
+<h2>Vanilla Votes: <span th:text="${vanillaVotes}"></span></h2>
+<h2>Banana Votes: <span th:text="${bananaVotes}"></span></h2>
 
 <form method="POST" th:action="@{/logout}" action="#">
     <input type="submit" value="Logout">

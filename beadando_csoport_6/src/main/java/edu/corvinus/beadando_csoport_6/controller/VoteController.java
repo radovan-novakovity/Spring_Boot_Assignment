@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -37,68 +36,73 @@ public class VoteController {
             model.addAttribute("user", new User());
             return "vote";
         } else {
-            // User is not in session, redirect to the login page
+            // user is not in session, redirect to the login page
             return "redirect:/";
         }
     }
 
     @PostMapping("/vote")
-    public String vote(@RequestParam("fav_icecream") String selectedFlavor,
-                       HttpSession session, RedirectAttributes redirectAttributes) {
-        // Check if the user is in session
+    public String vote(@RequestParam("fav_icecream") String selectedFlavor, HttpSession session) {
+        // requesting paramater from vote.html for favorite ice cream
+
+        // getting the username from the session
         String username = (String) session.getAttribute("user");
 
-        if (username != null) {
-            logger.info("Received vote request for user: " + username);
-
-            Optional<User> optionalUser = userRepository.findByName(username);
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                logger.info("Retrieved user from the database: " + user);
-
-                if (user.getVote()) {
-                    logger.info("User has already voted or has a null vote, redirecting to results");
-                    return "redirect:/results";
-                } else {
-                    user.setVote(true);
-                    user.setSelectedFlavor(selectedFlavor); // Set the selected flavor
-                    logger.info("Updating vote for user: " + user);
-
-                    userRepository.save(user);
-
-                    logger.info("Redirecting to results page");
-                    return "redirect:/results";
-                }
-            } else {
-                logger.warning("User not found in the database");
-                return "error";
-            }
-        } else {
-            // User is not in session, redirect to the login page
+        // If the user is not in session redirect to the login page
+        if (username == null) {
             return "redirect:/";
         }
+
+        logger.info("Received vote request for user: " + username);
+
+        // find the user by its entered username in the database
+        Optional<User> optionalUser = userRepository.findByName(username);
+
+        // if the user is not found in the database, handle the error
+        User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found in the database"));
+
+        logger.info("Retrieved user from the database: " + user);
+
+        // checking if user has already voted
+        if (user.getVote()) {
+            logger.info("User has already voted or has a null vote, redirecting to results");
+        } else {
+            // if the user haven't voted before it sets the vote property to true
+            user.setVote(true);
+            // it saves what flavor the user has voted for
+            user.setSelectedFlavor(selectedFlavor);
+            logger.info("Updating vote for user: " + user);
+            // updating the database have voted column and users favorite flavor
+            userRepository.save(user);
+        }
+
+        logger.info("Redirecting to results page");
+        return "redirect:/results";
     }
 
     @GetMapping("/results")
     public String showResultsPage(Model model) {
+
         logger.info("Inside showResultsPage method");
-        // Fetch vote counts for each flavor
+
+        // fetching vote counts for each flavor using the business logic defined in voteService
         long lemonVotes = voteService.countVotesByFlavor("lemon");
         long vanillaVotes = voteService.countVotesByFlavor("vanilla");
         long bananaVotes = voteService.countVotesByFlavor("banana");
 
         logger.info("Before fetching vote counts");
-        // Log vote counts for debugging
+        // log vote counts for debugging
         logger.info("Lemon Votes: " + lemonVotes);
         logger.info("Vanilla Votes: " + vanillaVotes);
         logger.info("Banana Votes: " + bananaVotes);
         logger.info("After fetching vote counts");
 
-        // Add vote counts to the model
+        // add vote counts to the model so it can be used in results.html
         model.addAttribute("lemonVotes", lemonVotes);
         model.addAttribute("vanillaVotes", vanillaVotes);
         model.addAttribute("bananaVotes", bananaVotes);
 
+        // logging for debugging
         List<User> allUsers = userRepository.findAll();
         allUsers.forEach(user -> logger.info("User: " + user.getName() + ", Flavor: " + user.getSelectedFlavor()));
 
