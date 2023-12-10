@@ -48,7 +48,7 @@ public class LoginController {
         Optional<User> userOptional = userRepository.findByName(enteredUsername);
         // checks if the username is Admin
         // if true it sets the session and redirects the Admin to admin.html
-        if("Admin".equals(enteredUsername)){
+        if(("Admin".equals(enteredUsername)) && (enteredPassword.equals(userOptional.get().getPassword()))){
             HttpSession session = request.getSession();
             session.setAttribute("user", enteredUsername);
             return "redirect:/admin";
