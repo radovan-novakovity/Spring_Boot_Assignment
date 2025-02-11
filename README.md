@@ -17,4 +17,4 @@ It has a Login / Register page, which includes validations for the Username and 
 
 The Admin user has a special page, where it displays every user, and their property values from the H2 database 'USERS' table.
 
-The voting page is, where the user has to pick an ice cream flavour, and once votes, brings them to the results page. On here it displays the number of votes each flavor has recieved so far. The way it works, if a user has their VOTE property set to TRUE, then after redirecting to the results page, it doesn't count their vote again. The application also uses Htpp sessions to implement that, and also the logout feature.
+The voting page is, where the user has to pick an ice cream flavour, and once votes, brings them to the results page. On here it displays the number of votes each flavor has recieved so far. The way it works, if a user has their VOTE property set to TRUE, then after redirecting to the results page, it doesn't count their vote again. The application also uses Http sessions to implement that, and also the logout feature.
